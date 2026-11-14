@@ -1,120 +1,94 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sing-Box 与 Clash 内核规则自动化转换与订阅解析解析 | SSRDOG 星际维基</title>
-  <meta name="description" content="针对【Sing-Box 与 Clash 内核规则自动化转换与订阅解析解析】的深度技术剖析。本文由SSRDOG(ssr-dog.wiki)工程团队编写，聚焦网络通信协议演进与企业级传输实战，详细拆解跨境专线传输低时延调优、流媒体高码率保障与网络稳定性自愈核心技巧。">
-  <link rel="canonical" href="https://ssr-dog.wiki/ssrdog-singbox-clash-config-automation.html">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  
-  <header class="navbar">
-    <div class="container nav-inner">
-      <a href="index.html" class="brand-logo">
-        <span>SSRDOG</span>
-        <span class="brand-badge">专网加速</span>
-      </a>
-      <nav>
-        <ul class="nav-links">
-          <li><a href="index.html">首页门户</a></li>
-          <li><a href="index.html#features">核心优势</a></li>
-          <li><a href="index.html#pricing">方案详情</a></li>
-          <li><a href="index.html#faq">常见问题</a></li>
-          <li><a href="hound-wiki-digest.html">星际百科</a></li>
-          <li><a href="https://ww012.twilightaff.com/#/?code=A56DH1Af" class="btn-aff-cta" target="_blank" rel="nofollow" style="padding: 7px 18px; font-size: 13px;">即刻连接</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SSRDOG客户端升级手册：订阅、规则与版本如何安全衔接｜SSRDOG</title><meta name="description" content="以SSRDOG用户的客户端维护为场景，说明升级前核对、订阅保护、兼容验证和配置恢复的操作顺序。"><meta name="keywords" content="SSRDOG,SSRDOG客户端升级手册：订阅、规则与版本如何安全衔接,升级问题从实际版本开始,网络使用指南"><link rel="canonical" href="https://ssr-dog.wiki/ssrdog-singbox-clash-config-automation.html"><meta property="og:type" content="article"><meta property="og:title" content="SSRDOG客户端升级手册：订阅、规则与版本如何安全衔接｜SSRDOG"><meta property="og:description" content="以SSRDOG用户的客户端维护为场景，说明升级前核对、订阅保护、兼容验证和配置恢复的操作顺序。"><meta property="og:url" content="https://ssr-dog.wiki/ssrdog-singbox-clash-config-automation.html"><meta property="og:image" content="https://ssr-dog.wiki/share.png"><meta property="og:locale" content="zh_CN"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script defer src="menu.js"></script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "name": "SSRDOG客户端升级手册：订阅、规则与版本如何安全衔接｜SSRDOG", "url": "https://ssr-dog.wiki/ssrdog-singbox-clash-config-automation.html", "description": "以SSRDOG用户的客户端维护为场景，说明升级前核对、订阅保护、兼容验证和配置恢复的操作顺序。", "inLanguage": "zh-CN", "headline": "SSRDOG客户端升级手册：订阅、规则与版本如何安全衔接｜SSRDOG", "dateModified": "2026-11-14", "image": "https://ssr-dog.wiki/share.png"}</script></head><body class="site-16 hero-D review-1 faq-2 nav-2"><div class="site-art" aria-hidden="true"><svg viewBox="0 0 520 440" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" style="max-height: 400px;">
+  <defs>
+    <linearGradient id="spaceGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10525b"/>
+      <stop offset="100%" stop-color="#0c2123"/>
+    </linearGradient>
+    <radialGradient id="nebulaGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#66d7e6" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#66d7e6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="starGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <style>
+    @keyframes astroFloat {
+      0%, 100% { transform: translateY(0px) rotate(-1deg); }
+      50% { transform: translateY(-16px) rotate(2deg); }
+    }
+    @keyframes starTwinkle {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+    @keyframes orbitSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .astro-hound { animation: astroFloat 5s ease-in-out infinite; transform-origin: center; }
+    .star-1 { animation: starTwinkle 3s ease-in-out infinite; transform-origin: 100px 90px; }
+    .star-2 { animation: starTwinkle 2.5s ease-in-out infinite 1s; transform-origin: 420px 130px; }
+    .star-3 { animation: starTwinkle 3.2s ease-in-out infinite 0.5s; transform-origin: 120px 330px; }
+    .orbit-ring { transform-origin: 260px 220px; animation: orbitSpin 20s linear infinite; }
+  </style>
 
+  <!-- Nebula Background -->
+  <circle cx="260" cy="220" r="160" fill="url(#nebulaGlow)" />
 
-  <main style="padding: 60px 0;">
-    <article class="container" style="max-width: 860px;">
-      <header style="margin-bottom: 26px; border-bottom: 1px solid #271b4a; padding-bottom: 20px;">
-        <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px;">
-          <span style="font-size:12px; color:#c084fc; background:#a855f722; padding:3px 10px; border-radius:10px; font-weight:600;">客户端生态</span>
-          <span style="font-size:13px; color:#6b7280;">发布时间: 2026年 · 跨境专网工程团队</span>
-        </div>
-        <h1 style="font-size:26px; font-weight:800; color:#fff; line-height:1.35; margin-bottom:12px;">Sing-Box 与 Clash 内核规则自动化转换与订阅解析解析</h1>
-        <p style="color:#9ca3af; font-size:14px; line-height:1.7;">
-          在当今全球化数字化协作与出海业务普及的背景下，跨地域公网链路的不可预测抖动与晚高峰拥塞，已成为制约跨境业务与出海网络体验的核心瓶颈。本文为您深度拆解高可靠专线架构的核心实现与调优落地技巧。
-        </p>
-      </header>
+  <!-- Stars -->
+  <g fill="#fff">
+    <circle cx="100" cy="90" r="2.5" class="star-1" />
+    <circle cx="420" cy="130" r="3" class="star-2" fill="#91e4ef" />
+    <circle cx="120" cy="330" r="2" class="star-3" />
+    <circle cx="430" cy="300" r="2.5" class="star-1" fill="#58cddc" />
+    <circle cx="210" cy="60" r="1.5" />
+    <circle cx="340" cy="70" r="2" />
+  </g>
 
-      <section style="font-size:15px; line-height:1.85; color:#d1d5db;">
-        <h2 style="font-size:19px; color:#fff; margin:24px 0 10px; font-weight:700;">一、全球竞技网游与外服联机低时延苛求</h2>
-        <p>在竞技射击与实时对战网游中，数十毫秒的延迟差异与瞬时丢包往往直接决定对局胜负。在深入分析各类高口碑<a href="https://dajichang.mom/" target="_blank" style="color:#c084fc; font-weight:700; text-decoration:underline;">翻墙梯子</a>的底层通信架构时，网络工程师通常更看重端到端物理专线与境内大厂BGP入口的协同效率，借助纯物理光缆绕过公网审查与国际出口拥塞，将晚高峰丢包率彻底压至0.1%以下，真正从链路底层消除了网络卡顿的物理诱因。</p>
+  <!-- Celestial Orbit Track -->
+  <g class="orbit-ring" opacity="0.6">
+    <ellipse cx="260" cy="220" rx="190" ry="85" fill="none" stroke="#66d7e6" stroke-width="1.5" stroke-dasharray="8,8" />
+    <circle cx="450" cy="220" r="6" fill="#58cddc" filter="url(#starGlow)" />
+  </g>
 
-        <h2 style="font-size:19px; color:#fff; margin:24px 0 10px; font-weight:700;">二、SSRDOGUDP加速隧道与路由优化</h2>
-        <p>网游数据包多基于UDP协议传输，对丢包与乱序极为敏感。<strong style="color:#c084fc; font-weight:700;">SSRDOG</strong>构建了专用的UDP低时延加速隧道，配合智能路由探测算法，每隔数秒便动态评估全球数百个节点至Steam、EA及PlayStation服务器的往返时延，并自动将玩家连接锁定在最优传输路径上。</p>
+  <!-- Astro Hound in Helmet -->
+  <g class="astro-hound">
+    <!-- Space Backpack Thrusters -->
+    <rect x="180" y="270" width="160" height="70" rx="18" fill="#183236" stroke="#1e4247" stroke-width="2" />
+    <circle cx="205" cy="340" r="10" fill="#66d7e6" opacity="0.8" filter="url(#starGlow)" />
+    <circle cx="315" cy="340" r="10" fill="#66d7e6" opacity="0.8" filter="url(#starGlow)" />
 
-        <h2 style="font-size:19px; color:#fff; margin:24px 0 10px; font-weight:700;">三、晚高峰丢包跳ping消除与NAT类型穿透</h2>
-        <p>公网玩家在晚高峰常遭遇NAT类型受限与跳ping困扰。通过专线通道的中继转发，用户端可实现全锥型(Full Cone)NAT完美穿透，显著提升联机匹配成功率。即使在晚间用网高峰期，游戏内的RTT波动方差依然能够稳定控制在毫秒级微小区间。</p>
+    <!-- Dog Space Suit Body -->
+    <path d="M195 240 C195 290 325 290 325 240 Z" fill="#22464b" stroke="#66d7e6" stroke-width="2" />
+    <rect x="235" y="255" width="50" height="20" rx="6" fill="#102629" stroke="#58cddc" stroke-width="1.5" />
 
-        <h2 style="font-size:19px; color:#fff; margin:24px 0 10px; font-weight:700;">四、多端主机与移动设备游戏网络配置指南</h2>
-        <p>无论是PC电竞选手、Switch/PS5主机玩家还是移动端手游爱好者，SSRDOG均提供了轻量化全适配方案。通过软路由全局透明代理或客户端分应用路由功能，仅将游戏流量引流至低时延专网，游戏更新与实时对战两不耽误。</p>
+    <!-- Helmet Glass Dome Outer Ring -->
+    <circle cx="260" cy="180" r="85" fill="#153033" stroke="#91e4ef" stroke-width="3" filter="url(#starGlow)" />
+    <circle cx="260" cy="180" r="76" fill="url(#spaceGrad)" opacity="0.9" />
 
-        <h2 style="font-size:19px; color:#fff; margin:24px 0 10px; font-weight:700;">五、外服语音沟通与战术协同零卡顿保障</h2>
-        <p>高水平电竞赛事除了画面低延迟外，战队队员之间通过Discord等实时语音工具的战术沟通同样不容有失。物理专线的低抖动特性确保了高采样率语音流的双向无损传输，完全避免了关键团战时由于公网丢包导致的声音断续与机器人音质现象。</p>
-        <p>在此基础之上，SSRDOG专网工程团队建议出海用户在日常使用中保持客户端规则库的持续更新，以便实时感知海外核心机房的链路动态变化与最新自愈策略。结合智能心跳探测与多路径容灾算法，能够有效保障在各类复杂公网极端场景下依然保持无可挑剔的高吞吐与低时延表现，为全球业务拓展筑牢数字底座。</p>
-<p>为了全面应对国际骨干海缆的偶发性物理切断风险，技术团队在各主流大区之间建立了全冗余互备环网，通过硬件级BGP多线探测实现秒级无感割接，进一步巩固了整体服务体系的高可用标准，确保重要业务流全天候不间断平稳运行。</p>
-<p>此外，面对海外流媒体平台的频繁风控检测与IP策略调整，SSRDOG建立了7×24小时全自动纯净度轮换机制，实时过滤被标记节点，持续为用户提供原生家庭住宅品质的干净IP资源，全方位赋能跨境出海业务的稳健增长。</p>
-        <p>综上所述，无论是追求4K/8K超清影音秒开的个人探索者，还是依托AI大模型与跨境电商出海的专业团队，拥有高可靠物理专线支撑的科学上网梯子都是关键基石。SSRDOG以扎实的企业级专网架构与卓越的原生住宅IP资源，为全球出海用户打造了稳定、纯净的高速专线网络通道，助力每位用户在全球数字浪潮中自由驰骋。</p>
-      <p>综合来看，长期稳定可靠的专线加速通道需要软硬件层面的持续精细化调优与多节点冗余支撑，方能在复杂的跨境网络环境中保障业务的顺畅开展。</p></section>
+    <!-- Dog Inside Helmet -->
+    <!-- Floppy Hound Ears -->
+    <path d="M185 160 C170 190 190 230 210 200 Z" fill="#4ccbdb" />
+    <path d="M335 160 C350 190 330 230 310 200 Z" fill="#4ccbdb" />
 
-      
-    <div style="background:#140e2b; border:1px solid #271b4a; border-radius:14px; padding:22px; margin-top:32px; text-align:center;">
-      <h3 style="font-size:17px; color:#fff; margin-bottom:6px;">SSRDOG 专网工程技术评测专栏</h3>
-      <p style="font-size:13px; color:#9ca3af; margin:0;">本技术专栏由架构运维团队持续维护，立足企业级专线与跨国互联前沿实践，定期分享协议调优指南。</p>
-    </div>
-    
-    </article>
-  </main>
+    <!-- Hound Face -->
+    <ellipse cx="260" cy="185" rx="46" ry="42" fill="#91e4ef" />
+    <path d="M245 190 Q260 170 275 190 Q260 215 245 190 Z" fill="#daf7fa" />
 
-  
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div style="font-weight: 800; font-size: 18px; color: #fff; margin-bottom: 12px;">SSRDOG</div>
-          <p style="line-height: 1.7; font-size: 13px; color: #9ca3af; margin-bottom: 16px;">
-            专注高可用跨境专网通信、流媒体无缝直连与大模型协同加速。端到端数据传输高强度封装，全节点高冗余备援，护航极速出海体验。
-          </p>
-          <div style="font-size: 12px; color: #6b7280;">© 2026 ssr-dog.wiki · 保留所有权利</div>
-        </div>
-        <div>
-          <h4 style="color: #fff; font-size: 15px; margin-bottom: 14px;">技术专栏与资讯</h4>
-          <ul class="footer-links">
-            <li><a href="hound-wiki-digest.html">星际百科</a></li>
-            <li><a href="index.html#pricing">套餐方案明细</a></li>
-            <li><a href="index.html#features">网络技术架构</a></li>
-            <li><a href="index.html#faq">常见答疑指引</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="color: #fff; font-size: 15px; margin-bottom: 14px;">合规服务与隐私</h4>
-          <ul class="footer-links">
-            <li><a href="about.html">关于我们</a></li>
-            <li><a href="terms.html">服务协议准则</a></li>
-            <li><a href="privacy.html">隐私与零日志承诺</a></li>
-            <li><a href="sitemap.html">网站地图导览</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="color: #fff; font-size: 15px; margin-bottom: 14px;">推荐探索</h4>
-          <ul class="footer-links">
-            <li><a href="https://dajichang.mom/" target="_blank" style="color: #c084fc; font-weight: 600;">2026 最新梯子推荐</a></li>
-            <li><a href="https://ww012.twilightaff.com/#/?code=A56DH1Af" target="_blank" rel="nofollow" style="color: #c084fc;">开启极速专网服务</a></li>
-          </ul>
-        </div>
-      </div>
-      <div style="border-top: 1px solid #271b4a; padding-top: 20px; text-align: center; font-size: 12px; color: #6b7280;">
-        免责声明：本站提供之网络评测与技术资料仅供跨境学术探索、合法国际贸易与多媒体开发协作使用。请严格遵守所在地区网络法规。
-      </div>
-    </div>
-  </footer>
+    <!-- Eyes (Cute Astro Gaze) -->
+    <circle cx="242" cy="175" r="5" fill="#102629" />
+    <circle cx="244" cy="173" r="2" fill="#fff" />
+    <circle cx="278" cy="175" r="5" fill="#102629" />
+    <circle cx="280" cy="173" r="2" fill="#fff" />
 
-</body>
-</html>
+    <!-- Snout & Nose -->
+    <ellipse cx="260" cy="195" rx="8" ry="6" fill="#102629" />
+    <path d="M255 204 Q260 210 265 204" fill="none" stroke="#102629" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Helmet Glass Reflection Glare -->
+    <path d="M210 145 C230 125 270 120 295 130 C270 135 240 145 220 165 Z" fill="#fff" opacity="0.35" />
+    <circle cx="310" cy="155" r="5" fill="#fff" opacity="0.4" />
+  </g>
+</svg></div><header class="site-header"><div class="nav-wrap"><a class="brand" href="index.html"><svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><path d="M9 25L7 6L22 14H30L40 8L39 29Q36 42 24 42Q12 42 9 25Z M16 24H19 M29 24H32 M20 32Q24 38 28 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SSRDOG</span></a><nav id="site-menu" aria-label="主导航"><a href="index.html">首页</a><a href="index.html#features">核心优势</a><a href="index.html#streaming">流媒体与AI</a><a href="index.html#pricing">价格套餐</a><a href="index.html#testimonials">用户评价</a><a href="index.html#faq">常见问题</a><a href="hound-wiki-digest.html">星际维基</a></nav><div class="nav-actions"><a class="button compact" href="https://ww012.twilightaff.com/#/?code=A56DH1Af" target="_blank" rel="sponsored nofollow noopener">立即选购</a><button type="button" class="menu-toggle" aria-label="切换主导航菜单" aria-controls="site-menu" aria-expanded="false"><span></span><span></span></button></div></div></header><main class="site-main"><article class="article-page"><header><span class="eyebrow">星际维基 · 更新 2026-11-14</span><h1>SSRDOG客户端升级手册：订阅、规则与版本如何安全衔接</h1><p class="lead">以SSRDOG用户的客户端维护为场景，说明升级前核对、订阅保护、兼容验证和配置恢复的操作顺序。</p></header><div class="article-body"><h2>升级问题从实际版本开始</h2><p>遇到客户端升级后无法连接，第一项需要记录的是实际运行的软件名称、版本、系统和安装来源。桌面图标相同，并不代表两台设备使用同一内核；订阅能导入，也不代表每一项规则都按原来的方式执行。SSRDOG用户整理故障时，可以先截图版本信息和错误提示，将账户密码与订阅地址遮挡。不要直接下载群里转发的旧安装包，也不要因为别人说某版正常就跳过来源核对。将问题限定到一个明确的设备组合，才能判断应该检查配置语法、系统权限还是服务方当前提供的客户端兼容说明。</p><h2>品牌资料与软件文档各有职责</h2><p>公开SSRDOG通知频道提供品牌入口线索，客户端项目文档则说明程序的具体行为，两者不能相互替代。<a href="index.html">SSRDOG使用资料</a>适合帮助读者寻找当前品牌信息，却不能证明某个第三方配置模板已经获得服务方验证。对于sing-box等项目，应查看对应版本的迁移说明；对于其他软件，也要使用各自的正式文档。若品牌面板只提供一类订阅格式，不应擅自宣称它兼容所有客户端。遇到需要转换的情况，先确认是否有受信任的本地方式及明确说明，避免把包含凭据的订阅上传到未知网站。</p><h2>先保存能够恢复的配置状态</h2><p>升级前应记录当前正常工作的任务、配置来源与必要设置。保存内容应进入设备上受控的位置，而不是公开网盘或共享聊天。所谓备份不必包含全部浏览器资料，更不应将私人账户和公司账号混在一个压缩包内。恢复计划需要说明哪些内容能还原、哪些系统权限要重新确认，以及旧版是否仍能合法取得。对无法安全回退的设备，先在另一台非关键终端验证更稳妥。备份的价值是让使用者知道如何回到一个已理解的状态，不是长期积累大量无人管理的秘密副本。</p><h2>迁移说明比复制旧字段更可靠</h2><p>软件项目可能移除旧字段、改变默认行为或调整规则结构。sing-box的迁移页面按版本说明变化，因此不能把多年以前的配置教程当作当前规范。实际升级时，只处理自己使用到的功能，并把每项修改与文档中的对应变化关联起来。不要为了消除警告随意添加大量参数，更不要将别人的全量配置覆盖自己的订阅。对不理解的字段，可以先保留问题记录并寻求正式支持。一个短小且知道用途的配置，通常比内容复杂、来源混杂却无人解释的模板更容易维护，也更容易发现升级引入的差异。</p><h2>验证顺序从简单到完整</h2><p>第一次启动新版本后，先确认程序正常运行且没有明显配置错误，再检查一个公开网页任务，最后验证真实需要的应用流程。测试应覆盖登录、附件或文件传输、必要的实时功能，而不是只看客户端显示已连接。每完成一步记录结果，若失败便停止扩大范围，避免同时修改多项设置。对于公司设备，仍应遵守原有网络策略，不得为了升级测试绕过管理要求。若某个任务在旧版本正常而新版本失败，保存相同条件下的对照信息，比单纯回报新版不好用更能帮助维护者理解问题。</p><h2>自动更新也需要可见的结果</h2><p>自动获取订阅能够减少手动复制，但不应让用户失去对配置变化的了解。理想的维护记录至少包括更新时间、更新是否成功和当前使用哪份配置，不需要显示完整凭据。若更新失败，界面应明确继续使用旧配置还是停止服务；使用者不能仅凭列表里仍有项目就认定更新完成。公司或家庭共用设备可安排固定负责人检查异常，而不是每个人分别点击更新。不要在关键会议或正在提交重要工作时主动进行大范围变更，版本维护与业务使用应有可预期的时间安排。</p><h2>回退后仍需保留问题线索</h2><p>恢复到原先可用状态后，容易产生问题已经解决的感觉，但升级失败的原因仍需要记录。可以保留错误文本、发生步骤与不含秘密的配置片段，说明哪些尝试已做过、哪些没有做。若向项目提交问题，应使用最小复现材料，并遵循项目的反馈格式，不能上传真实订阅。对方给出的修复建议也应先在低影响环境验证。回退是一种恢复工作的方法，不等于证明新版本普遍有缺陷，也不能成为长期停留在不受支持版本的理由，后续应安排再次评估。</p><h2>把维护说明交给未来的自己</h2><p>一份有效的升级记录应让几个月后的使用者看得懂：当时为何升级、采用了哪个来源、修改了哪些设置、验证了哪些工作，以及仍有哪些限制。无需写成庞大的技术报告，清楚的时间顺序和结论即可。订阅到期、设备更换与客户端升级应分开记录，避免多个变化混在一起无法定位。涉及SSRDOG套餐、设备限制或支持承诺的部分，仍需以当期服务方说明核对，不能从客户端功能推导出品牌权益。将品牌事实与软件行为分开管理，才能在后续维护中避免反复误判。</p><h2>用退出检查结束升级</h2><p>升级完成后，可重新启动一次客户端并确认它仍加载预期配置，再检查系统是否遗留调试模式、临时代理或不必要的日志输出。完成这一步，才能避免程序当次运行正常却在下次开机失效。将最终版本与负责人写入维护记录，并删除不再需要的含凭据临时材料。不要把调试期间复制出的配置长期留在下载目录或公共桌面。</p></div></article></main><footer class="site-footer"><nav aria-label="页脚导航"><a href="sitemap.html">网站地图</a><a href="about.html">关于我们</a><a href="terms.html">服务条款</a><a href="privacy.html">隐私政策</a></nav><p>© 2026 ssr-dog.wiki</p></footer></body></html>
